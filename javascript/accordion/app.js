@@ -6,5 +6,8 @@ function accordion() {
 		$(this).find('> * > *').not(':first-child').hide(); 
 	});
 
-	
+	$($(children)).on('click', function(){
+	  $(this).children().not(':first-child').slideToggle('slow');
+	  $(this).siblings().children().not(':first-child').slideUp("slow"); 
+	})
 }
