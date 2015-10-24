@@ -6,4 +6,5 @@ function accordion() {
 		$(this).find('> * > *').not(':first-child').hide(); 
 	});
 
+	
 }

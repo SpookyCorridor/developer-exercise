@@ -19,4 +19,14 @@ describe('Accordion', function() {
 		})
 	})
 
+	it('should toggle content on clicking accordion-header', function() {
+		var secondAnchor = $('.accordion-header').eq(1).children(':first-child');
+		$(secondAnchor).trigger("click");
+		var secondChildren = $('.accordion-header').eq(1).children().not(':first-child');
+		$.each(secondChildren, function(child) {
+			expect(secondChildren[child].style.display).to.equal('block'); 
+		});
+
+	})
+	
 })
