@@ -23,6 +23,10 @@ var QuoteView = Backbone.View.extend({
 		this.render(); 
 	},
 
+	events: {
+		"click #load-more-quotes" : "renderNextQuoteGroup" 
+	},
+
 	render: function() {
 		var that = this; 
 		this.collection.fetch({
@@ -48,6 +52,15 @@ var QuoteView = Backbone.View.extend({
 			return this;
 		}, 
 
+		renderNextQuoteGroup: function() {
+			if(this.page < this.totalPages) {
+				this.page++;
+				var start = this.page * this.perPage; 
+				var end = start + (this.perPage - 1);
+				this.renderQuoteGroup(start, end);
+			}
+		},
+
 		renderLoadMoreButton: function() {
 			if(this.page >= (this.totalPages - 1)) {
 				this.loadMore.$el.hide();
@@ -57,8 +70,18 @@ var QuoteView = Backbone.View.extend({
 			}
 	});
 
-	var loadMoreQuotesView = Backbone.View.extend({
-		el: $("#load-more-quotes")
-	});
-
+var loadMoreQuotesView = Backbone.View.extend({
+	el: $("#load-more-quotes")
 });
+
+var AppView = Backbone.View.extend({
+	el: "container",
+	initialize: function() {
+		var quotes = new QuoteList();
+		var quotesView = new QuoteView({
+		});
+	}
+});
+
+
+var App = new AppView;
