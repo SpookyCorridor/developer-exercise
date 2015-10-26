@@ -5,12 +5,25 @@
     <link rel="stylesheet" href="../../node_modules/mocha/mocha.css" />
   </head>
   <body>
-    
+    <div id="container">
+      <div id="quotes">
+      
+      </div>
+    </div> 
+
+    <script id="quotes-template" type="text/template">
+      <ul> 
+        <li><%= source %></li> 
+        <li><%= context %></li>
+        <li><%= quote %></li>
+        <li><%= theme %></li>
+      </ul> 
+    </script> 
     <div id="mocha"></div>
     <script src="../../node_modules/mocha/mocha.js"></script>
     <script src="../../node_modules/chai/chai.js"></script>
     <script>
-      mocha.ui('bdd')
+      mocha.setup('bdd')
       expect = chai.expect
       chai.should()  
     </script> 

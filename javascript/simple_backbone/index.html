@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+  
+</head>
+<body>
+  <div id="container">
+    <div id="quotes">
+      
+    </div>
+  </div> 
+
+   <script id="quotes-template" type="text/template">
+      <ul> 
+        <li><%= source %></li> 
+        <li><%= context %></li>
+        <li><%= quote %></li>
+        <li><%= theme %></li>
+      </ul> 
+    </script>        
+  <script src="app.js"></script>
+</body>
+</html>
