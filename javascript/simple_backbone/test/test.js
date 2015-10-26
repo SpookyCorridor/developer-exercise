@@ -12,5 +12,11 @@ describe("initialize testing", function() {
 			this.collection.url.should.equal(apiLink);
 		});
 
+		it('should make a single server request on fetch', function() {
+			var spy = sinon.spy(jQuery, 'ajax');
+			this.collection.fetch();
+			sinon.assert.calledOnce(spy);
+			jQuery.ajax.restore();
+		})
 	});
 });

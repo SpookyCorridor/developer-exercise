@@ -21,11 +21,13 @@
     </script> 
     <div id="mocha"></div>
     <script src="../../node_modules/mocha/mocha.js"></script>
-    <script src="../../node_modules/chai/chai.js"></script>
+    <script src="../../node_modules/chai/chai.js"></script> 
+    <script src="sinontest.js"></script> 
     <script>
       mocha.setup('bdd')
       expect = chai.expect
-      chai.should()  
+      chai.should()
+      sinon = sinon 
     </script> 
     <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../../node_modules/underscore/underscore-min.js"></script>
