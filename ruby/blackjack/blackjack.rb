@@ -99,6 +99,15 @@ class Dealer < Deck
   def dealer_show
     @cards.sample 
   end 
+
+  def draw_card
+    @cards << @deck.deal_card
+    if busted?
+      puts 'dealer busted'
+    end 
+    if blackjack?
+      puts 'dealer wins'
+    end 
 end
 
 require 'test/unit'
@@ -170,5 +179,11 @@ class HandTest < Test::Unit::TestCase
     @player.cards[0] = 21
     assert(@player.blackjack?)
   end 
+
+  def dealer_can_draw_until_bust_or_blackjack
+    loop do 
+      @dealer.draw_card
+    break if assert(busted? || blackjack?)
+end 
 end 
 
