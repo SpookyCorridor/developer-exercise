@@ -57,11 +57,17 @@ class Player < Deck
     2.times do 
       @cards << @deck.deal_card
     end
-    if busted? 
-      @cards
-    else  
-      @cards
+    @cards  
+  end 
+
+  def draw_card
+    @cards << @deck.deal_card
+    if busted?
+      puts 'player busted'
     end 
+    if blackjack?
+      puts 'player wins'
+    end
   end 
 
   def busted?
@@ -93,11 +99,7 @@ class Dealer < Deck
     2.times do 
       @cards << @deck.deal_card
     end
-    if busted? 
       @cards
-    else  
-      @cards
-    end 
   end  
 
   def dealer_show
@@ -201,8 +203,7 @@ class HandTest < Test::Unit::TestCase
     assert(@player.blackjack?)
   end 
 
-  def test_dealer_can_draw_until_bust_or_blackjack
-    
+  def test_dealer_can_draw_until_bust_or_blackjack 
     @dealer.starting_hand
     8.times do 
       @dealer.draw_card
