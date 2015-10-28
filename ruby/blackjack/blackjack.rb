@@ -202,8 +202,12 @@ class HandTest < Test::Unit::TestCase
   end 
 
   def test_dealer_can_draw_until_bust_or_blackjack
-    @dealer.cards[0] = 11 
-    assert(@dealer.blackjack?)
+    
+    @dealer.starting_hand
+    8.times do 
+      @dealer.draw_card
+    end 
+    assert(@dealer.busted?)
   end 
 end 
 
