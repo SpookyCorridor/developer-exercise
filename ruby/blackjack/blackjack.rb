@@ -31,6 +31,7 @@ class Deck
   def deal_card
     random = rand(@playable_cards.size)
     @playable_cards.delete_at((random - 1))
+    random 
   end
 
   def shuffle
@@ -43,12 +44,52 @@ class Deck
   end
 end
 
-class Hand
+class Player < Deck  
   attr_accessor :cards
 
   def initialize
+    @deck = Deck.new 
     @cards = []
   end
+
+  def starting_hand
+    2.times do 
+      @cards << @deck.deal_card
+    end
+    if busted? 
+      @cards
+    else  
+      @cards
+    end 
+  end 
+
+  def busted?
+    @total = 0 
+    @cards.each do |card| 
+      @total += card 
+    end 
+    @total > 21 ? true : false 
+  end 
+end
+
+class Dealer < Deck  
+  attr_accessor :cards
+
+  def initialize
+    @deck = Deck.new 
+    @cards = []
+  end
+
+  def starting_hand
+    2.times do 
+      @cards << @deck.deal_card
+    end 
+    @cards
+  end 
+
+  def dealer_show
+    @cards.sample 
+  end 
 end
 
 require 'test/unit'
@@ -88,4 +129,33 @@ class DeckTest < Test::Unit::TestCase
     @deck.shuffle
     assert_equal @deck.playable_cards.size, 52
   end
+
 end
+
+class HandTest < Test::Unit::TestCase 
+  def setup
+    @player = Player.new 
+    @dealer = Dealer.new 
+  end 
+
+  def test_player_hand_has_2_starting_cards
+    @player.starting_hand
+    assert_equal @player.cards.length, 2
+  end 
+
+  def test_dealer_hand_has_2_starting_cards
+    @dealer.starting_hand
+    assert_equal @dealer.cards.length, 2
+  end 
+
+  def test_dealer_shows_card
+    assert_respond_to(@dealer, :dealer_show)
+  end 
+
+  def test_player_can_bust_immediately
+    @player.cards[0] = 22
+    assert(@player.busted?)
+  end 
+
+end 
+
