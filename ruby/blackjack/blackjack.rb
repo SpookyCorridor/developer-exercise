@@ -77,12 +77,12 @@ class Player < Deck
     @cards.each do |card| 
       @total += card 
     end 
-    @total = 21 ? true : false 
+    @total == 21 ? true : false 
   end 
 end
 
 class Dealer < Deck  
-  attr_accessor :cards
+  attr_accessor :cards, :total 
 
   def initialize
     @deck = Deck.new 
@@ -92,9 +92,13 @@ class Dealer < Deck
   def starting_hand
     2.times do 
       @cards << @deck.deal_card
+    end
+    if busted? 
+      @cards
+    else  
+      @cards
     end 
-    @cards
-  end 
+  end  
 
   def dealer_show
     @cards.sample 
@@ -107,7 +111,24 @@ class Dealer < Deck
     end 
     if blackjack?
       puts 'dealer wins'
+    end
+  end 
+
+  def busted?
+    @total = 0 
+    @cards.each do |card| 
+      @total += card 
     end 
+    @total > 21 ? true : false 
+  end 
+
+  def blackjack? 
+    @total = 0 
+    @cards.each do |card| 
+      @total += card 
+    end 
+    @total == 21 ? true : false 
+  end 
 end
 
 require 'test/unit'
@@ -180,10 +201,9 @@ class HandTest < Test::Unit::TestCase
     assert(@player.blackjack?)
   end 
 
-  def dealer_can_draw_until_bust_or_blackjack
-    loop do 
-      @dealer.draw_card
-    break if assert(busted? || blackjack?)
-end 
+  def test_dealer_can_draw_until_bust_or_blackjack
+    @dealer.cards[0] = 11 
+    assert(@dealer.blackjack?)
+  end 
 end 
 
