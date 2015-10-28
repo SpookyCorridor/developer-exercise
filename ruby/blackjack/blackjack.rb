@@ -44,8 +44,9 @@ class Deck
   end
 end
 
+#TODO: DRY player and dealer into extending a Hand class 
 class Player < Deck  
-  attr_accessor :cards
+  attr_accessor :cards, :total 
 
   def initialize
     @deck = Deck.new 
@@ -69,6 +70,14 @@ class Player < Deck
       @total += card 
     end 
     @total > 21 ? true : false 
+  end 
+
+  def blackjack? 
+    @total = 0 
+    @cards.each do |card| 
+      @total += card 
+    end 
+    @total = 21 ? true : false 
   end 
 end
 
@@ -157,5 +166,9 @@ class HandTest < Test::Unit::TestCase
     assert(@player.busted?)
   end 
 
+  def test_player_can_win_immediately
+    @player.cards[0] = 21
+    assert(@player.blackjack?)
+  end 
 end 
 
